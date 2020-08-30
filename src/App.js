@@ -1,41 +1,47 @@
 import React from "react"
 import { Card } from "primereact/card"
 import { OrderList } from "primereact/orderlist"
-// import "primereact/resources/themes/nova-light/theme.css"
-import "primereact/resources/primereact.min.css"
-// import "primeflex/primeflex.css"
+import "primereact/resources/themes/nova/theme.css"
+import "primeflex/primeflex.css"
 import "primeicons/primeicons.css"
+import Form from "./components/form"
+import ListItem from "./components/listItem"
+import Footer from "./components/footer"
 
 import logo from "./logo.svg"
 import "./App.css"
-import Form from "./components/form"
-import Footer from "./components/footer"
-import ListItem from "./components/listItem"
 
 function App() {
   const [tasks, setTasks] = React.useState([])
   const [filteredTasks, setFilteredTasks] = React.useState([])
   const [filter, setFilter] = React.useState("All")
   const [leftTasks, setLeftTasks] = React.useState(0)
+  const [finishedTask, setFinishedTask] = React.useState(0)
+
+  const removeCompleted = () =>
+    setTasks(tasks.filter((item) => item.active === true))
 
   React.useEffect(() => {
     const activeTasks = tasks.filter((item) => item.active === true)
+    const completedTasks = tasks.filter((item) => item.active === false)
     if (filter !== "All") {
-      if (filter === "Completed")
-        setFilteredTasks(tasks.filter((item) => item.active === false))
+      if (filter === "Completed") setFilteredTasks(completedTasks)
       else if (filter === "Active") setFilteredTasks(activeTasks)
     } else setFilteredTasks(tasks)
     setLeftTasks(activeTasks.length)
+    setFinishedTask(completedTasks.length)
   }, [tasks])
 
   return (
-    <main className="p-grid p-align-start">
+    <main className="p-grid p-justify-center">
       <Card
         className="p-col"
         header={<Form setTasks={setTasks} oldTasksList={tasks} />}
         footer={
           <Footer
             tasksCount={leftTasks}
+            removeTasks={finishedTask > 0}
+            removeCompleted={removeCompleted}
             activeFilter={filter}
             setFilter={setFilter}
           />
@@ -46,7 +52,7 @@ function App() {
           itemTemplate={ListItem}
           header="Work to do"
           dataKey="id"
-          // onChange={(e) => this.setState({ products: e.value })}
+          onChange={(e) => this.setState({ filteredTasks: e.value })}
         />
       </Card>
     </main>
