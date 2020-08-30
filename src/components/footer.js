@@ -16,8 +16,10 @@ const Footer = ({
 
   return (
     <div className="p-grid">
-      <div className="p-col-12 p-md-3 p-lg-2">{tasksCount} items left</div>
-      <div className="p-col-12 p-md-6 p-lg-8 p-justify-center">
+      <div className="p-col-12 p-md-3 p-lg-2" style={{ margin: "auto" }}>
+        {tasksCount} items left
+      </div>
+      <div className="p-col-12 p-md-6 p-lg-8  p-d-flex p-justify-center">
         {filters.map((filter) => (
           <Button
             key={`filter_${filter}`}
