@@ -41,13 +41,13 @@ function App() {
           />
         }
       >
-        {/* <OrderList
+        <OrderList
           value={filteredTasks}
-          itemTemplate={<ListItem />}
+          itemTemplate={ListItem}
           header="Work to do"
-          // dataKey="id"
+          dataKey="id"
           // onChange={(e) => this.setState({ products: e.value })}
-        /> */}
+        />
       </Card>
     </main>
   )
