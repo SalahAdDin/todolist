@@ -2,8 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import id from "shortid"
 import { useFormik } from "formik"
+import * as yup from "yup"
 import { Button } from "primereact/button"
 import { InputText } from "primereact/inputtext"
+import "primeflex/primeflex.css"
+import "./form.scss"
 
 const Form = ({ oldTasksList, setTasks }) => {
   const [allActive, setAllActive] = React.useState(false)
@@ -31,14 +34,15 @@ const Form = ({ oldTasksList, setTasks }) => {
   }
 
   return (
-    <div className="p-fluid">
+    <div className="p-fluid form">
       <span className="p-input-icon-left">
         <Button
+          type="button"
           icon="pi pi-angle-down"
-          className="p-button-rounded p-button-success p-button-text"
+          className="p-button-rounded p-button-text"
           onClick={handleOnClick}
         />
-        <form className="p-field" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <InputText
             id="task"
             name="task"
