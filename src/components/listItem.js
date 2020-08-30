@@ -4,13 +4,27 @@ import { Button } from "primereact/button"
 import { Checkbox } from "primereact/checkbox"
 
 const ListItem = (item) => {
+  // TODO: How can i pass oldTasksList and setTask to there?
+  const handleOnClickRemove = (id) => {
+    //     setTasks(oldTasksList.map((task) => task.id !== id))
+  }
+
+  const onTaskChange = (id) => {
+    //     setTasks(
+    //       oldTasksList.map((task) =>
+    //         task.id === id ? (task.active = !task.active) : task
+    //       )
+    //     )
+  }
+
   return (
-    <div className="product-item">
+    <div className="product-item p-d-flex p-p-2 p-align-center">
       <Checkbox
         inputId="cb1"
-        // value={completed}
-        // onChange={}
-        // checked={}
+        value={item.name}
+        onChange={() => onTaskChange(item.id)}
+        checked={!item.active}
+        className="p-mr-3"
       />
       <label
         htmlFor="cb1"
@@ -21,7 +35,8 @@ const ListItem = (item) => {
       </label>
       <Button
         icon="pi pi-times"
-        className="p-button-rounded p-button-danger p-button-text"
+        className="p-button-rounded p-button-danger p-button-text p-ml-auto"
+        onClick={() => handleOnClickRemove(item.id)}
       />
     </div>
   )

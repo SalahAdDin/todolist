@@ -10,7 +10,7 @@ import ListItem from "./components/listItem"
 import Footer from "./components/footer"
 
 import logo from "./logo.svg"
-import "./App.css"
+import "./App.scss"
 
 function App() {
   const [tasks, setTasks] = React.useState([])
@@ -34,7 +34,10 @@ function App() {
   }, [tasks])
 
   return (
-    <main className="p-grid p-justify-center">
+    <main
+      className="p-grid p-justify-center"
+      style={{ margin: "auto", marginTop: 60 }}
+    >
       <Card
         className="p-col"
         header={<Form setTasks={setTasks} oldTasksList={tasks} />}
