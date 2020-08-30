@@ -22,7 +22,7 @@ function App() {
   const removeCompleted = () =>
     setTasks(tasks.filter((item) => item.active === true))
 
-  React.useEffect(() => {
+  const updateAllLists = () => {
     const activeTasks = tasks.filter((item) => item.active === true)
     const completedTasks = tasks.filter((item) => item.active === false)
     if (filter !== "All") {
@@ -31,7 +31,15 @@ function App() {
     } else setFilteredTasks(tasks)
     setLeftTasks(activeTasks.length)
     setFinishedTask(completedTasks.length)
+  }
+
+  React.useEffect(() => {
+    updateAllLists()
   }, [tasks])
+
+  React.useEffect(() => {
+    updateAllLists()
+  }, [filter])
 
   return (
     <main
