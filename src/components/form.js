@@ -16,6 +16,12 @@ const Form = ({ oldTasksList, setTasks }) => {
     handleSubmit,
   } = useFormik({
     initialValues: { task: "" },
+    validationSchema: yup.object({
+      task: yup
+        .string()
+        .min(5, "Must be 5 characters or more.")
+        .required("Must be fulfilled."),
+    }),
     onSubmit: ({ task }, { resetForm }) => {
       setTasks([...oldTasksList, { id: id.generate(), task, active: true }])
       resetForm()
@@ -35,14 +41,14 @@ const Form = ({ oldTasksList, setTasks }) => {
 
   return (
     <div className="p-fluid form">
-      <span className="p-input-icon-left">
+      <span className="p-input-icon-left left-input">
         <Button
           type="button"
           icon="pi pi-angle-down"
           className="p-button-rounded p-button-text"
           onClick={handleOnClick}
         />
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="p-d-inline-block">
           <InputText
             id="task"
             name="task"
