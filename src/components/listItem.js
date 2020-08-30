@@ -3,25 +3,24 @@ import PropTypes from "prop-types"
 import { Button } from "primereact/button"
 import { Checkbox } from "primereact/checkbox"
 
-const ListItem = (item) => {
-  // TODO: How can i pass oldTasksList and setTask to there?
+const ListItem = ({ item, oldTasksList, setTasks }) => {
   const handleOnClickRemove = (id) => {
-    //     setTasks(oldTasksList.map((task) => task.id !== id))
+    setTasks(oldTasksList.filter((task) => task.id !== id))
   }
 
   const onTaskChange = (id) => {
-    //     setTasks(
-    //       oldTasksList.map((task) =>
-    //         task.id === id ? (task.active = !task.active) : task
-    //       )
-    //     )
+    setTasks(
+      oldTasksList.map((task) =>
+        task.id === id ? { ...task, active: !task.active } : task
+      )
+    )
   }
 
   return (
     <div className="product-item p-d-flex p-p-2 p-align-center">
       <Checkbox
         inputId="cb1"
-        value={item.name}
+        value={item.task}
         onChange={() => onTaskChange(item.id)}
         checked={!item.active}
         className="p-mr-3"
@@ -43,9 +42,13 @@ const ListItem = (item) => {
 }
 
 ListItem.propTypes = {
-  id: PropTypes.string,
-  task: PropTypes.string,
-  active: PropTypes.bool,
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    task: PropTypes.string,
+    active: PropTypes.bool,
+  }),
+  oldTasksList: PropTypes.arrayOf(PropTypes.object),
+  setTasks: PropTypes.func,
 }
 
 export default ListItem

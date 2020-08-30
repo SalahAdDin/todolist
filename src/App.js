@@ -61,7 +61,9 @@ function App() {
       >
         <OrderList
           value={filteredTasks}
-          itemTemplate={ListItem}
+          itemTemplate={(item) => (
+            <ListItem item={item} oldTasksList={tasks} setTasks={setTasks} />
+          )}
           header="Work to do"
           dataKey="id"
           onChange={(e) => this.setState({ filteredTasks: e.value })}
